@@ -3,231 +3,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO Title & Description -->
     <title>Toomate - Best Free HD Video & Music Downloader for Android</title>
     <meta name="description" content="Download HD videos and MP3 music from YouTube, Facebook, Instagram, TikTok, and 1000+ websites instantly with Toomate Android app. Fast, free, and 100% safe." />
-    
+
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="WkewJoN7SwY5syPfeh5f55MX5clHbT069rSG8IkhO0w" />
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/okc1Qb3.png">
+
+    <!-- Tailwind CSS v4 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .hero-gradient { background: linear-gradient(135deg, #FF3B30 0%, #FF6B2B 100%); }
-        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
+        body {
+            font-family: 'Poppins', 'Inter', 'Noto Sans Bengali', 'Noto Sans Devanagari', sans-serif;
+            background-color: #FFFFFF;
+            color: #1E1E2F;
+            overflow-x: hidden;
         }
-        .animate-float { animation: float 4s ease-in-out infinite; }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 25px rgba(255, 59, 48, 0.5), 0 0 50px rgba(255, 107, 43, 0.3); transform: scale(1); }
-            50% { box-shadow: 0 0 40px rgba(255, 59, 48, 0.9), 0 0 80px rgba(255, 107, 43, 0.6); transform: scale(1.03); }
+        .vid-gradient {
+            background: linear-gradient(135deg, #FF3B30 0%, #FF5E3A 100%);
         }
-        .pulse-btn { animation: pulse-glow 2.2s infinite; }
+        .vid-circle-bg {
+            background: radial-gradient(circle at 45% 45%, #FF6B3D 0%, #FF3B30 62%, #FF2A2A 100%);
+        }
+        .vid-text-gradient {
+            background: linear-gradient(135deg, #FF3B30 0%, #FF5E3A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Nav Underline Animation */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2.5px;
+            background: linear-gradient(90deg, #FF3B30, #FF5E3A);
+            border-radius: 99px;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Pulsing Radar CTA */
+        @keyframes radarPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.55), 0 12px 30px -5px rgba(255, 59, 48, 0.45); }
+            70% { box-shadow: 0 0 0 16px rgba(255, 59, 48, 0), 0 12px 30px -5px rgba(255, 59, 48, 0.45); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0), 0 12px 30px -5px rgba(255, 59, 48, 0.45); }
+        }
+        .pulse-cta {
+            animation: radarPulse 2.2s infinite;
+        }
+
+        /* Tactile Click Ripple */
+        .ripple-btn {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .ripple-btn:active { transform: scale(0.97); }
+        .ripple-wave {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.45);
+            transform: scale(0);
+            animation: rippleExpand 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes rippleExpand {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* 3D Phone Floating Animation */
+        @keyframes phoneFloat3D {
+            0%, 100% { transform: perspective(1100px) rotateY(-9deg) rotateX(3deg) translateY(0px); }
+            50% { transform: perspective(1100px) rotateY(-6deg) rotateX(5deg) translateY(-12px); }
+        }
+        .phone-3d-float {
+            animation: phoneFloat3D 5s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+        @media (max-width: 1023px) {
+            @keyframes phoneFloatMobile {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-9px); }
+            }
+            .phone-3d-float { animation: phoneFloatMobile 4.5s ease-in-out infinite; }
+        }
+
+        /* Orbiting Social Icons */
+        @keyframes orbit1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-8px, -14px); } }
+        @keyframes orbit2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10px, 12px); } }
+        @keyframes orbit3 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(8px, -12px); } }
+        @keyframes orbit4 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-10px, 10px); } }
+        .orbit-1 { animation: orbit1 4s ease-in-out infinite; }
+        .orbit-2 { animation: orbit2 4.5s ease-in-out infinite; }
+        .orbit-3 { animation: orbit3 3.8s ease-in-out infinite; }
+        .orbit-4 { animation: orbit4 4.8s ease-in-out infinite; }
+
+        /* Infinite Marquee */
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeScroll 28s linear infinite;
+        }
+        .marquee-wrapper:hover .marquee-track { animation-play-state: paused; }
+
+        /* Scroll Reveal */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Speed Thread Bars */
+        @keyframes speedBar {
+            0% { width: 20%; }
+            50% { width: 95%; }
+            100% { width: 20%; }
+        }
+        .thread-1 { animation: speedBar 1.8s ease-in-out infinite; }
+        .thread-2 { animation: speedBar 1.4s ease-in-out infinite 0.2s; }
+        .thread-3 { animation: speedBar 2.1s ease-in-out infinite 0.4s; }
+
+        /* Smooth FAQ */
+        .faq-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.32s ease;
+        }
+        .faq-item.active .faq-content { grid-template-rows: 1fr; }
+        .faq-inner { overflow: hidden; }
+        .faq-item.active .faq-chevron { transform: rotate(180deg); color: #FF3B30; }
+
+        /* Timeline Flow */
+        @keyframes flowLine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .timeline-flow {
+            background: linear-gradient(90deg, #FF3B30, #FF5E3A, #ffd1c7, #FF3B30);
+            background-size: 200% 100%;
+            animation: flowLine 3s linear infinite;
+        }
     </style>
 </head>
-<body class="bg-[#F8F9FA] text-[#1E2229] antialiased selection:bg-[#FF3B30] selection:text-white">
+<body class="antialiased selection:bg-[#FF3B30] selection:text-white pb-16 md:pb-0">
 
-    <!-- Sticky Glassmorphic Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-gray-100 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <img src="https://i.imgur.com/okc1Qb3.png" alt="Toomate Logo" class="w-10 h-10 rounded-xl object-contain shadow-md group-hover:scale-110 transition-transform">
-                <span class="text-2xl font-extrabold tracking-tight text-[#1E2229]">Too<span class="text-[#FF3B30]">mate</span></span>
+    <!-- ==================== 1. STICKY VIDMATE-STYLE NAVBAR ==================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[74px] flex items-center justify-between">
+            
+            <!-- Left: Toomate Logo -->
+            <a href="#home" class="flex items-center gap-3 group shrink-0">
+                <img src="https://i.imgur.com/okc1Qb3.png" alt="Toomate Logo" class="w-10 h-10 rounded-xl object-contain shadow-md group-hover:scale-105 transition-transform">
+                <span class="text-2xl font-extrabold tracking-tight text-[#1E1E2F]">
+                    Too<span class="vid-text-gradient">mate</span>
+                </span>
             </a>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-[#68707E]">
-                <a href="#hero" class="hover:text-[#FF3B30] transition-colors">Home</a>
-                <a href="#features" class="hover:text-[#FF3B30] transition-colors">Features</a>
-                <a href="#platforms" class="hover:text-[#FF3B30] transition-colors">Supported Sites</a>
-                <a href="#how-to-download" class="hover:text-[#FF3B30] transition-colors">How to Download</a>
-                <a href="#faq" class="hover:text-[#FF3B30] transition-colors">FAQ</a>
-            </nav>
+            <!-- Right: Nav Links + Language Switcher -->
+            <div class="flex items-center gap-6 lg:gap-8">
+                <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-gray-600">
+                    <a href="#home" class="nav-link active text-[#FF3B30]">Home</a>
+                    <a href="#features" class="nav-link hover:text-[#FF3B30]">Features</a>
+                    <a href="#screenshots" class="nav-link hover:text-[#FF3B30]">Screenshots</a>
+                    <a href="#faq" class="nav-link hover:text-[#FF3B30]">FAQ</a>
+                    <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="nav-link hover:text-[#FF3B30]">Download</a>
+                </nav>
 
-            <!-- Right Actions -->
-            <div class="hidden sm:flex items-center gap-4">
-                <!-- Download CTA Button with Direct Link -->
-                <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="hero-gradient text-white font-bold px-6 py-2.5 rounded-full shadow-xl hover:opacity-95 transition flex items-center gap-2.5 text-sm pulse-btn">
+                <!-- Language Switcher Dropdown -->
+                <div class="relative">
+                    <button id="langToggleBtn" onclick="toggleLangDropdown()" class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-gray-700 bg-[#F8F9FA] hover:bg-gray-100 border border-gray-200 px-3.5 py-2 rounded-full transition cursor-pointer">
+                        <i class="fa-solid fa-globe text-[#FF3B30]"></i>
+                        <span id="activeLangLabel">English</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-gray-400"></i>
+                    </button>
+                    <div id="langDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50 text-xs sm:text-sm font-medium">
+                        <button onclick="setLanguage('en', 'English')" class="w-full text-left px-4 py-2 hover:bg-red-50 hover:text-[#FF3B30] flex items-center justify-between cursor-pointer">
+                            <span>English</span> <span class="text-[10px] text-emerald-500">●</span>
+                        </button>
+                        <button onclick="setLanguage('bn', 'বাংলা')" class="w-full text-left px-4 py-2 hover:bg-red-50 hover:text-[#FF3B30] flex items-center justify-between cursor-pointer">
+                            <span>বাংলা</span> <span class="text-[10px] text-gray-300">BN</span>
+                        </button>
+                        <button onclick="setLanguage('hi', 'हिन्दी')" class="w-full text-left px-4 py-2 hover:bg-red-50 hover:text-[#FF3B30] flex items-center justify-between cursor-pointer">
+                            <span>हिन्दी</span> <span class="text-[10px] text-gray-300">HI</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Header Download Pill -->
+                <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="hidden lg:inline-flex items-center gap-2 vid-gradient text-white text-sm font-bold px-5 py-2.5 rounded-full shadow-lg hover:opacity-95 ripple-btn">
                     <i class="fa-solid fa-download text-xs"></i>
                     <span>Download App</span>
                 </a>
-            </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="menuBtn" class="md:hidden text-2xl text-[#1E2229] focus:outline-none">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl bg-[#F8F9FA] text-[#1E1E2F] flex items-center justify-center text-lg cursor-pointer">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-200 shadow-xl px-6 py-6 flex flex-col gap-4">
-            <a href="#hero" class="mobile-link font-medium text-lg">Home</a>
-            <a href="#features" class="mobile-link font-medium text-lg">Features</a>
-            <a href="#platforms" class="mobile-link font-medium text-lg">Supported Sites</a>
-            <a href="#how-to-download" class="mobile-link font-medium text-lg">How to Download</a>
-            <a href="#faq" class="mobile-link font-medium text-lg">FAQ</a>
-            <hr class="border-gray-100 my-2">
-            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="hero-gradient text-white font-bold py-3 rounded-xl text-center flex items-center justify-center gap-2 shadow-md">
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-2xl px-5 py-5 space-y-3">
+            <a href="#home" class="mobile-nav-item block font-semibold text-[#FF3B30] py-1.5">Home</a>
+            <a href="#features" class="mobile-nav-item block font-semibold text-gray-700 py-1.5">Features</a>
+            <a href="#screenshots" class="mobile-nav-item block font-semibold text-gray-700 py-1.5">Screenshots</a>
+            <a href="#faq" class="mobile-nav-item block font-semibold text-gray-700 py-1.5">FAQ</a>
+            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal(); toggleMobileMenu();" class="w-full vid-gradient text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md ripple-btn">
                 <i class="fa-solid fa-download"></i>
                 <span>Download Toomate APK</span>
             </a>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-red-50/50 to-[#F8F9FA]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ==================== 2. HERO SECTION (VIDMATE.COM EXACT STYLE) ==================== -->
+    <section id="home" class="relative pt-28 pb-20 sm:pt-36 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#FFF5F4] via-white to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- Left Column -->
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <!-- Trust Pill Badge -->
-                    <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200/60 px-4 py-1.5 rounded-full text-amber-800 text-xs font-semibold shadow-xs">
-                        <span class="text-amber-500">★ 4.9 Rating</span>
+                <!-- Left Content -->
+                <div class="lg:col-span-6 text-center lg:text-left space-y-6">
+                    <!-- Version & Trust Tag -->
+                    <div class="inline-flex flex-wrap items-center justify-center gap-2.5 bg-white border border-amber-200/70 px-4 py-1.5 rounded-full shadow-xs">
+                        <span class="text-amber-500 text-xs font-bold">★ 4.9 Rating</span>
                         <span class="w-1 h-1 rounded-full bg-amber-400"></span>
-                        <span>1B+ Downloads</span>
+                        <span class="text-xs font-bold text-[#1E1E2F]">1B+ Downloads</span>
                         <span class="w-1 h-1 rounded-full bg-amber-400"></span>
-                        <span class="text-emerald-600 font-bold">100% Safe ✓</span>
+                        <span class="text-xs font-extrabold text-[#FF3B30]">v4.0 • 68.2 MB</span>
+                    </div>
+
+                    <!-- VidMate Signature Category Pills -->
+                    <div class="flex items-center justify-center lg:justify-start gap-2.5">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-[#FF3B30] text-xs font-bold"><i class="fa-solid fa-video"></i> Video</span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#FF5E3A] text-xs font-bold"><i class="fa-solid fa-music"></i> Music</span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-bold"><i class="fa-solid fa-image"></i> Image</span>
                     </div>
 
                     <!-- Headline -->
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1E2229] leading-tight tracking-tight">
-                        The Ultimate Free HD Video Downloader for <span class="text-transparent bg-clip-text hero-gradient">Android</span>
+                    <h1 id="heroTitle" class="text-3xl sm:text-5xl lg:text-[52px] font-black text-[#1E1E2F] leading-[1.14] tracking-tight">
+                        Best Free Video & Music <br class="hidden sm:block">
+                        Downloader for <span class="vid-text-gradient">Android</span>
                     </h1>
 
                     <!-- Subheadline -->
-                    <p class="text-base sm:text-lg text-[#68707E] max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                        Like VidMate, Toomate brings lightning-fast video and music downloads from YouTube, Facebook, Instagram, TikTok, and 1000+ websites in stunning 4K and MP3 formats.
+                    <p id="heroSubtitle" class="text-base sm:text-lg text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Like VidMate, Toomate brings lightning-fast HD videos, movies, and MP3 music downloads from YouTube, Facebook, Instagram, TikTok, and 1000+ websites in stunning 4K and MP3 formats.
                     </p>
 
-                    <!-- Super Animated Download CTAs (Direct Link using <a> tag) -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-                        <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="w-full sm:w-auto hero-gradient text-white font-extrabold px-8 py-4 rounded-2xl shadow-2xl hover:opacity-95 transition flex items-center justify-center gap-3 text-lg pulse-btn group cursor-pointer">
-                            <img src="https://i.imgur.com/okc1Qb3.png" alt="Logo" class="w-7 h-7 rounded-lg bg-white/20 p-1 object-contain group-hover:rotate-12 transition-transform">
+                    <!-- Primary & Secondary CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="w-full sm:w-auto vid-gradient text-white px-7 py-4 rounded-2xl pulse-cta ripple-btn flex items-center justify-center gap-3.5 group">
+                            <img src="https://i.imgur.com/okc1Qb3.png" alt="Toomate" class="w-8 h-8 rounded-lg bg-white/20 p-1 object-contain group-hover:rotate-12 transition-transform">
                             <div class="text-left">
-                                <div class="text-[11px] font-medium text-white/90 uppercase tracking-wider">Official Android Release</div>
-                                <div class="text-base font-extrabold">Download Toomate APK (Free)</div>
+                                <div class="text-[11px] font-semibold text-white/90 uppercase tracking-wider">Version 4.0 | 68.2 MB</div>
+                                <div id="heroCtaText" class="text-lg font-extrabold leading-tight">Download Toomate APK</div>
                             </div>
+                            <i class="fa-solid fa-arrow-down ml-1 bg-white/20 w-8 h-8 rounded-full flex items-center justify-center text-sm"></i>
                         </a>
 
-                        <!-- QR Code Trigger -->
-                        <button onclick="openQRModal()" class="w-full sm:w-auto bg-white border border-gray-200 text-[#1E2229] font-bold px-6 py-4 rounded-2xl shadow-xs hover:bg-gray-50 transition flex items-center justify-center gap-2.5 text-base cursor-pointer">
-                            <i class="fa-solid fa-qrcode text-[#FF3B30] text-xl"></i>
+                        <button onclick="openQRModal()" class="w-full sm:w-auto bg-white border-2 border-gray-200 hover:border-[#FF3B30] text-[#1E1E2F] font-bold px-6 py-4 rounded-2xl shadow-xs hover:shadow-md transition-all duration-300 ripple-btn flex items-center justify-center gap-2.5 cursor-pointer">
+                            <i class="fa-solid fa-qrcode text-[#FF3B30] text-2xl"></i>
                             <span>Scan QR Code</span>
                         </button>
                     </div>
 
-                    <!-- App Specs Meta -->
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-semibold text-[#68707E] pt-2">
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-box text-[#FF3B30]"></i> Version 4.0</span>
-                        <span>•</span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> Size: 68.2 MB</span>
-                        <span>•</span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-android text-emerald-500"></i> Android 5.0+</span>
-                        <span>•</span>
-                        <span class="flex items-center gap-1.5 text-emerald-600 font-bold"><i class="fa-solid fa-shield-check"></i> VirusFree</span>
+                    <!-- Security Verified Bar (Exact vidmateapp.com Style) -->
+                    <div class="pt-2">
+                        <div class="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-5 bg-[#F8F9FA] border border-gray-200/80 rounded-2xl px-5 py-3">
+                            <div class="flex items-center gap-2 text-xs font-bold text-emerald-600">
+                                <i class="fa-solid fa-shield-halved text-base animate-pulse"></i>
+                                <span>100% Safe & VirusFree</span>
+                            </div>
+                            <div class="hidden sm:block w-px h-4 bg-gray-300"></div>
+                            <div class="flex items-center gap-4 text-xs font-semibold text-gray-600">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-500"></i> CM Security</span>
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-500"></i> Lookout</span>
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-500"></i> McAfee</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Column: VidMate Style 3D Smartphone Mockup -->
-                <div class="lg:col-span-5 flex justify-center">
-                    <div class="relative w-[300px] h-[610px] bg-[#1E2229] rounded-[42px] p-3 shadow-2xl border-4 border-gray-800 animate-float">
-                        <!-- Phone Notch -->
-                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-5 bg-black rounded-full z-20 flex items-center justify-center">
-                            <div class="w-12 h-1 bg-gray-800 rounded-full"></div>
+                <!-- Right Content: VidMate Signature Circle Aura + Phone Mockup WITH 4 REAL HD THUMBNAILS -->
+                <div class="lg:col-span-6 relative flex justify-center items-center py-6">
+                    <!-- Signature VidMate Red-Orange Circular Aura -->
+                    <div class="absolute w-[330px] h-[330px] sm:w-[440px] sm:h-[440px] rounded-full vid-circle-bg opacity-95 shadow-2xl"></div>
+                    <div class="absolute w-[370px] h-[370px] sm:w-[485px] sm:h-[485px] rounded-full border border-red-200/70 pointer-events-none"></div>
+
+                    <!-- Orbiting Social Icons -->
+                    <div class="orbit-1 absolute top-6 left-2 sm:left-8 z-20 w-12 h-12 rounded-2xl bg-white shadow-xl border border-gray-100 flex items-center justify-center text-red-600 text-2xl">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div class="orbit-2 absolute bottom-16 left-0 sm:left-6 z-20 w-11 h-11 rounded-2xl bg-white shadow-xl border border-gray-100 flex items-center justify-center text-blue-600 text-xl">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </div>
+                    <div class="orbit-3 absolute top-14 right-2 sm:right-8 z-20 w-11 h-11 rounded-2xl bg-white shadow-xl border border-gray-100 flex items-center justify-center text-pink-600 text-2xl">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="orbit-4 absolute bottom-10 right-2 sm:right-8 z-20 w-12 h-12 rounded-2xl bg-white shadow-xl border border-gray-100 flex items-center justify-center text-emerald-500 text-2xl">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+
+                    <!-- 3D Floating Smartphone Mockup -->
+                    <div class="phone-3d-float relative z-10 w-[290px] sm:w-[310px] h-[605px] bg-[#1E1E2F] rounded-[44px] p-2.5 shadow-2xl border-4 border-gray-800">
+                        <!-- Notch -->
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-full z-20 flex items-center justify-end pr-2">
+                            <div class="w-2 h-2 rounded-full bg-gray-700"></div>
                         </div>
 
                         <!-- Inner Screen -->
-                        <div class="w-full h-full bg-[#F8F9FA] rounded-[32px] overflow-hidden flex flex-col relative pt-7">
-                            
-                            <!-- App Header Bar -->
-                            <div class="bg-white px-4 py-3 flex items-center justify-between border-b border-gray-100">
-                                <div class="flex items-center gap-2">
-                                    <img src="https://i.imgur.com/okc1Qb3.png" class="w-7 h-7 rounded-lg object-contain">
-                                    <span class="font-bold text-sm text-[#1E2229]">Toomate</span>
+                        <div class="w-full h-full bg-[#F8F9FA] rounded-[34px] overflow-hidden flex flex-col">
+                            <!-- App Header -->
+                            <div class="vid-gradient pt-8 pb-3 px-3.5 text-white">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-2 font-extrabold text-sm">
+                                        <img src="https://i.imgur.com/okc1Qb3.png" alt="Icon" class="w-5 h-5 rounded-md bg-white p-0.5 object-contain">
+                                        <span>Toomate</span>
+                                    </div>
+                                    <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">v4.0 HD</span>
                                 </div>
-                                <div class="w-7 h-7 rounded-full bg-[#FF3B30] text-white flex items-center justify-center text-xs shadow-sm">
-                                    <i class="fa-solid fa-search"></i>
-                                </div>
-                            </div>
-
-                            <!-- Search Bar Simulation -->
-                            <div class="px-3 py-2 bg-white">
-                                <div class="bg-gray-100 rounded-full px-4 py-2 flex items-center justify-between text-xs text-gray-500 border border-gray-200">
+                                <div class="bg-white rounded-full px-3.5 py-1.5 flex items-center justify-between text-[11px] text-gray-500">
                                     <span>সার্চ বা লিংক পেস্ট করুন...</span>
-                                    <i class="fa-solid fa-arrow-right text-[#FF3B30]"></i>
+                                    <i class="fa-solid fa-magnifying-glass text-[#FF3B30]"></i>
                                 </div>
                             </div>
 
-                            <!-- Platforms Grid in App -->
-                            <div class="px-3 py-2 bg-white border-b border-gray-100 flex items-center justify-between gap-2 overflow-x-auto">
-                                <div class="flex flex-col items-center gap-1 flex-shrink-0">
-                                    <div class="w-9 h-9 rounded-full bg-red-500 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-play"></i></div>
-                                    <span class="text-[9px] text-gray-600 font-medium">YouTube</span>
-                                </div>
-                                <div class="flex flex-col items-center gap-1 flex-shrink-0">
-                                    <div class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs"><i class="fa-brands fa-facebook-f"></i></div>
-                                    <span class="text-[9px] text-gray-600 font-medium">Facebook</span>
-                                </div>
-                                <div class="flex flex-col items-center gap-1 flex-shrink-0">
-                                    <div class="w-9 h-9 rounded-full bg-pink-600 text-white flex items-center justify-center text-xs"><i class="fa-brands fa-instagram"></i></div>
-                                    <span class="text-[9px] text-gray-600 font-medium">Insta</span>
-                                </div>
-                                <div class="flex flex-col items-center gap-1 flex-shrink-0">
-                                    <div class="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center text-xs"><i class="fa-brands fa-tiktok"></i></div>
-                                    <span class="text-[9px] text-gray-600 font-medium">TikTok</span>
-                                </div>
+                            <!-- Quick Platform Icons inside Phone -->
+                            <div class="bg-white px-3 py-2 border-b border-gray-100 grid grid-cols-4 gap-2 text-center">
+                                <div class="flex flex-col items-center"><div class="w-7 h-7 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-xs"><i class="fa-brands fa-youtube"></i></div><span class="text-[8px] font-bold text-gray-600 mt-0.5">YouTube</span></div>
+                                <div class="flex flex-col items-center"><div class="w-7 h-7 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs"><i class="fa-brands fa-facebook-f"></i></div><span class="text-[8px] font-bold text-gray-600 mt-0.5">Facebook</span></div>
+                                <div class="flex flex-col items-center"><div class="w-7 h-7 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center text-xs"><i class="fa-brands fa-instagram"></i></div><span class="text-[8px] font-bold text-gray-600 mt-0.5">Instagram</span></div>
+                                <div class="flex flex-col items-center"><div class="w-7 h-7 rounded-full bg-gray-100 text-black flex items-center justify-center text-xs"><i class="fa-brands fa-tiktok"></i></div><span class="text-[8px] font-bold text-gray-600 mt-0.5">TikTok</span></div>
                             </div>
 
-                            <!-- Feed Video Card -->
-                            <div class="p-2 flex-1 overflow-y-auto space-y-3">
-                                <div class="bg-white rounded-xl p-2 shadow-xs border border-gray-100 relative">
-                                    <div class="w-full h-28 bg-gray-900 rounded-lg relative overflow-hidden flex items-center justify-center">
-                                        <div class="absolute inset-0 bg-gradient-to-tr from-red-900 to-orange-800 opacity-90"></div>
-                                        <div class="text-white font-bold text-xs z-10 text-center px-2">4K HD MUSIC VIDEO <br><span class="text-[10px] text-amber-300">Direct Downloader</span></div>
-                                        <span class="absolute bottom-1 right-1 bg-black/70 text-white text-[9px] px-1 rounded">HD</span>
-                                    </div>
-                                    <div class="flex items-center justify-between mt-2">
-                                        <div>
-                                            <div class="text-xs font-bold text-gray-800 truncate w-36">Trending Video Song 2026</div>
-                                            <div class="text-[10px] text-gray-400">Toomate Server</div>
+                            <!-- 4 REAL BEAUTIFUL VIDEO THUMBNAILS (2x2 GRID INSIDE PHONE) -->
+                            <div class="p-2.5 flex-1 flex flex-col justify-between gap-2 overflow-hidden">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <!-- Thumbnail 1: DJ Music Concert -->
+                                    <div class="bg-white rounded-xl p-1.5 shadow-xs border border-gray-100">
+                                        <div class="relative h-20 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80" alt="DJ Music Video" class="w-full h-full object-cover">
+                                            <span class="absolute top-1 left-1 bg-[#FF3B30] text-white text-[8px] font-bold px-1 rounded">4K</span>
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">04:18</span>
                                         </div>
-                                        <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="w-8 h-8 rounded-full bg-[#FF3B30] text-white flex items-center justify-center shadow-md">
-                                            <i class="fa-solid fa-download text-xs"></i>
-                                        </a>
+                                        <div class="flex items-center justify-between mt-1.5 gap-1">
+                                            <div class="min-w-0">
+                                                <div class="text-[9px] font-bold text-[#1E1E2F] truncate">DJ Remix Hits 2026</div>
+                                                <div class="text-[8px] text-gray-400">2.8M views</div>
+                                            </div>
+                                            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="w-5 h-5 rounded-full vid-gradient text-white flex items-center justify-center text-[8px] shrink-0"><i class="fa-solid fa-download"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Thumbnail 2: 4K Mountain Travel -->
+                                    <div class="bg-white rounded-xl p-1.5 shadow-xs border border-gray-100">
+                                        <div class="relative h-20 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="4K Nature" class="w-full h-full object-cover">
+                                            <span class="absolute top-1 left-1 bg-emerald-500 text-white text-[8px] font-bold px-1 rounded">HD</span>
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">08:45</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mt-1.5 gap-1">
+                                            <div class="min-w-0">
+                                                <div class="text-[9px] font-bold text-[#1E1E2F] truncate">4K Scenic Nature</div>
+                                                <div class="text-[8px] text-gray-400">1.9M views</div>
+                                            </div>
+                                            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="w-5 h-5 rounded-full vid-gradient text-white flex items-center justify-center text-[8px] shrink-0"><i class="fa-solid fa-download"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Thumbnail 3: Studio Music Mic -->
+                                    <div class="bg-white rounded-xl p-1.5 shadow-xs border border-gray-100">
+                                        <div class="relative h-20 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" alt="MP3 Song" class="w-full h-full object-cover">
+                                            <span class="absolute top-1 left-1 bg-amber-500 text-white text-[8px] font-bold px-1 rounded">MP3</span>
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">03:32</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mt-1.5 gap-1">
+                                            <div class="min-w-0">
+                                                <div class="text-[9px] font-bold text-[#1E1E2F] truncate">Acoustic Top Song</div>
+                                                <div class="text-[8px] text-gray-400">320kbps MP3</div>
+                                            </div>
+                                            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="w-5 h-5 rounded-full vid-gradient text-white flex items-center justify-center text-[8px] shrink-0"><i class="fa-solid fa-download"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Thumbnail 4: Live Concert Festival -->
+                                    <div class="bg-white rounded-xl p-1.5 shadow-xs border border-gray-100">
+                                        <div class="relative h-20 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Live Concert" class="w-full h-full object-cover">
+                                            <span class="absolute top-1 left-1 bg-[#FF3B30] text-white text-[8px] font-bold px-1 rounded">1080p</span>
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">14:20</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mt-1.5 gap-1">
+                                            <div class="min-w-0">
+                                                <div class="text-[9px] font-bold text-[#1E1E2F] truncate">Live Stage Show</div>
+                                                <div class="text-[8px] text-gray-400">5.2M views</div>
+                                            </div>
+                                            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="w-5 h-5 rounded-full vid-gradient text-white flex items-center justify-center text-[8px] shrink-0"><i class="fa-solid fa-download"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Live Animated Download Bar Inside Phone -->
+                                <div class="bg-white rounded-xl p-2.5 shadow-xs border border-red-100 space-y-1.5">
+                                    <div class="flex items-center justify-between text-[10px]">
+                                        <span class="font-bold text-[#1E1E2F] flex items-center gap-1">
+                                            <i class="fa-solid fa-circle-arrow-down text-[#FF3B30] animate-bounce"></i>
+                                            Downloading 4K_Movie.mp4
+                                        </span>
+                                        <span id="phonePercent" class="font-extrabold text-[#FF3B30]">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                        <div id="phoneProgressBar" class="h-full vid-gradient rounded-full transition-all duration-100" style="width: 0%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-[8px] text-gray-400 font-medium">
+                                        <span>16.4 MB/s • Multi-Thread</span>
+                                        <span id="phoneSize">0 / 120 MB</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- App Bottom Navigation -->
-                            <div class="bg-white border-t border-gray-100 py-2 px-4 flex items-center justify-between text-center">
-                                <div class="flex flex-col items-center text-[#FF3B30]">
-                                    <i class="fa-solid fa-house text-xs"></i>
-                                    <span class="text-[9px] font-bold">Home</span>
-                                </div>
-                                <div class="flex flex-col items-center text-gray-400">
-                                    <i class="fa-solid fa-download text-xs"></i>
-                                    <span class="text-[9px]">Downloads</span>
-                                </div>
-                                <div class="flex flex-col items-center text-gray-400">
-                                    <i class="fa-solid fa-folder text-xs"></i>
-                                    <span class="text-[9px]">Files</span>
-                                </div>
-                                <div class="flex flex-col items-center text-gray-400">
-                                    <i class="fa-solid fa-gear text-xs"></i>
-                                    <span class="text-[9px]">Settings</span>
-                                </div>
+                            <!-- Bottom Bar -->
+                            <div class="bg-white border-t border-gray-100 py-2 px-5 flex items-center justify-between text-center">
+                                <div class="text-[#FF3B30] flex flex-col items-center"><i class="fa-solid fa-house text-xs"></i><span class="text-[8px] font-bold">Home</span></div>
+                                <div class="text-gray-400 flex flex-col items-center"><i class="fa-solid fa-download text-xs"></i><span class="text-[8px]">Downloads</span></div>
+                                <div class="text-gray-400 flex flex-col items-center"><i class="fa-solid fa-folder text-xs"></i><span class="text-[8px]">Files</span></div>
+                                <div class="text-gray-400 flex flex-col items-center"><i class="fa-solid fa-gear text-xs"></i><span class="text-[8px]">Settings</span></div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -236,239 +464,855 @@
         </div>
     </section>
 
-    <!-- Supported Platforms Showcase -->
-    <section id="platforms" class="py-20 bg-white border-y border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-extrabold text-[#1E2229] mb-4">Download Videos from 1000+ Websites</h2>
-            <p class="text-[#68707E] max-w-xl mx-auto mb-12 text-sm sm:text-base">Support for direct high-speed video extraction and MP3 conversion across top platforms.</p>
+    <!-- ==================== 3. SUPPORTED SITES INFINITE MARQUEE ==================== -->
+    <section class="py-12 bg-[#F8F9FA] border-y border-gray-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 mb-6 text-center">
+            <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Download Videos & Music from 1000+ Popular Platforms</p>
+        </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <div onclick="showToast('YouTube')" class="p-6 rounded-2xl bg-[#F8F9FA] border border-gray-200/60 hover:border-red-500 hover:shadow-lg transition cursor-pointer group flex flex-col items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-2xl group-hover:scale-110 transition"><i class="fa-brands fa-youtube"></i></div>
-                    <span class="font-bold text-sm text-[#1E2229]">YouTube</span>
+        <div class="marquee-wrapper overflow-hidden relative">
+            <div class="marquee-track gap-5 py-2">
+                <!-- Track Set 1 -->
+                <div class="flex items-center gap-5 shrink-0 px-2">
+                    <div onclick="showToast('YouTube Supported', 'HD Video & MP3 extraction ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-red-200 transition-all duration-300 cursor-pointer">
+                        <i class="fa-brands fa-youtube text-2xl text-red-600"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">YouTube</span>
+                    </div>
+                    <div onclick="showToast('Facebook Supported', 'HD Video & Reels extraction ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-blue-200 transition-all duration-300 cursor-pointer">
+                        <i class="fa-brands fa-facebook text-2xl text-blue-600"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">Facebook</span>
+                    </div>
+                    <div onclick="showToast('Instagram Supported', 'Reels, Stories & Posts ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-pink-200 transition-all duration-300 cursor-pointer">
+                        <i class="fa-brands fa-instagram text-2xl text-pink-600"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">Instagram</span>
+                    </div>
+                    <div onclick="showToast('TikTok Supported', 'No-Watermark HD download ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-gray-300 transition-all duration-300 cursor-pointer">
+                        <i class="fa-brands fa-tiktok text-2xl text-black"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">TikTok</span>
+                    </div>
+                    <div onclick="showToast('Vimeo Supported', '4K Video extraction ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-cyan-200 transition-all duration-300 cursor-pointer">
+                        <i class="fa-brands fa-vimeo-v text-2xl text-cyan-500"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">Vimeo</span>
+                    </div>
+                    <div onclick="showToast('Dailymotion Supported', 'HD Video extraction ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-sky-200 transition-all duration-300 cursor-pointer">
+                        <i class="fa-solid fa-play-circle text-2xl text-sky-600"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">Dailymotion</span>
+                    </div>
+                    <div onclick="showToast('Twitter / X Supported', 'Direct Video & GIF download ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-gray-300 transition-all duration-300 cursor-pointer">
+                        <i class="fa-brands fa-x-twitter text-2xl text-gray-900"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">Twitter / X</span>
+                    </div>
+                    <div onclick="showToast('SoundCloud Supported', '320kbps MP3 extraction ready in Toomate.')" class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs hover:scale-105 hover:shadow-lg hover:border-orange-200 transition-all duration-300 cursor-pointer">
+                        <i class="fa-brands fa-soundcloud text-2xl text-orange-500"></i>
+                        <span class="font-bold text-sm text-[#1E1E2F]">SoundCloud</span>
+                    </div>
                 </div>
-                <div onclick="showToast('Facebook')" class="p-6 rounded-2xl bg-[#F8F9FA] border border-gray-200/60 hover:border-blue-500 hover:shadow-lg transition cursor-pointer group flex flex-col items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-2xl group-hover:scale-110 transition"><i class="fa-brands fa-facebook"></i></div>
-                    <span class="font-bold text-sm text-[#1E2229]">Facebook</span>
-                </div>
-                <div onclick="showToast('Instagram')" class="p-6 rounded-2xl bg-[#F8F9FA] border border-gray-200/60 hover:border-pink-500 hover:shadow-lg transition cursor-pointer group flex flex-col items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-2xl group-hover:scale-110 transition"><i class="fa-brands fa-instagram"></i></div>
-                    <span class="font-bold text-sm text-[#1E2229]">Instagram</span>
-                </div>
-                <div onclick="showToast('TikTok')" class="p-6 rounded-2xl bg-[#F8F9FA] border border-gray-200/60 hover:border-black hover:shadow-lg transition cursor-pointer group flex flex-col items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-gray-100 text-black flex items-center justify-center text-2xl group-hover:scale-110 transition"><i class="fa-brands fa-tiktok"></i></div>
-                    <span class="font-bold text-sm text-[#1E2229]">TikTok</span>
-                </div>
-                <div onclick="showToast('Twitter / X')" class="p-6 rounded-2xl bg-[#F8F9FA] border border-gray-200/60 hover:border-gray-800 hover:shadow-lg transition cursor-pointer group flex flex-col items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-gray-200 text-gray-900 flex items-center justify-center text-2xl group-hover:scale-110 transition"><i class="fa-brands fa-x-twitter"></i></div>
-                    <span class="font-bold text-sm text-[#1E2229]">Twitter (X)</span>
-                </div>
-                <div onclick="showToast('WhatsApp Status')" class="p-6 rounded-2xl bg-[#F8F9FA] border border-gray-200/60 hover:border-emerald-500 hover:shadow-lg transition cursor-pointer group flex flex-col items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl group-hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></div>
-                    <span class="font-bold text-sm text-[#1E2229]">WhatsApp</span>
+
+                <!-- Track Set 2 (Seamless Loop) -->
+                <div class="flex items-center gap-5 shrink-0 px-2" aria-hidden="true">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-brands fa-youtube text-2xl text-red-600"></i><span class="font-bold text-sm text-[#1E1E2F]">YouTube</span></div>
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-brands fa-facebook text-2xl text-blue-600"></i><span class="font-bold text-sm text-[#1E1E2F]">Facebook</span></div>
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-brands fa-instagram text-2xl text-pink-600"></i><span class="font-bold text-sm text-[#1E1E2F]">Instagram</span></div>
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-brands fa-tiktok text-2xl text-black"></i><span class="font-bold text-sm text-[#1E1E2F]">TikTok</span></div>
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-brands fa-vimeo-v text-2xl text-cyan-500"></i><span class="font-bold text-sm text-[#1E1E2F]">Vimeo</span></div>
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-solid fa-play-circle text-2xl text-sky-600"></i><span class="font-bold text-sm text-[#1E1E2F]">Dailymotion</span></div>
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-brands fa-x-twitter text-2xl text-gray-900"></i><span class="font-bold text-sm text-[#1E1E2F]">Twitter / X</span></div>
+                    <div class="flex items-center gap-3 bg-white px-6 py-3.5 rounded-2xl border border-gray-100 shadow-xs"><i class="fa-brands fa-soundcloud text-2xl text-orange-500"></i><span class="font-bold text-sm text-[#1E1E2F]">SoundCloud</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Core Features Section -->
-    <section id="features" class="py-24 bg-[#F8F9FA]">
+    <!-- ==================== 4. CORE FEATURES GRID (6 CARDS) ==================== -->
+    <section id="features" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-[#FF3B30] font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full">Why Choose Toomate</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1E2229] mt-3">Powerful Features Built for Android Users</h2>
-                <p class="text-[#68707E] mt-3 text-sm sm:text-base">Experience unmatched downloading speed, offline playback, and crystal-clear media conversion.</p>
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
+                <span class="text-[#FF3B30] font-bold text-xs uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full">Why Choose Toomate</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1E1E2F] mt-4">Powerful Features Built for Android</h2>
+                <p class="text-gray-500 mt-3 text-sm sm:text-base">Experience unmatched downloading speed, offline playback, and crystal-clear 4K & MP3 conversion.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition group">
-                    <div class="w-14 h-14 rounded-2xl hero-gradient text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                <div class="reveal-up bg-[#F8F9FA] hover:bg-white p-8 rounded-3xl border border-gray-100 hover:border-red-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl vid-gradient text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1E1E2F] mb-3">Unlimited Free Downloads</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Save unlimited full movies, trending music tracks, and 1080p/4K HD videos directly to your phone storage free.</p>
+                </div>
+
+                <div class="reveal-up bg-[#F8F9FA] hover:bg-white p-8 rounded-3xl border border-gray-100 hover:border-red-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group" style="transition-delay: 80ms;">
+                    <div class="w-14 h-14 rounded-2xl vid-gradient text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1E1E2F] mb-3">1000+ Sites Supported</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Paste any URL or browse inside Toomate to download from YouTube, Facebook, Instagram, TikTok, Vimeo, and more.</p>
+                </div>
+
+                <div class="reveal-up bg-[#F8F9FA] hover:bg-white p-8 rounded-3xl border border-gray-100 hover:border-red-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group" style="transition-delay: 160ms;">
+                    <div class="w-14 h-14 rounded-2xl vid-gradient text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-[#1E2229] mb-3">Lightning Fast Speed</h3>
-                    <p class="text-[#68707E] text-sm leading-relaxed">Multi-thread download technology accelerates downloading speeds up to 5x faster than standard browsers.</p>
+                    <h3 class="text-xl font-bold text-[#1E1E2F] mb-3">Fast Download Technology</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Multi-thread technology accelerates speeds up to 5x faster than standard browsers.</p>
+                    <div class="space-y-1.5 bg-white p-2.5 rounded-xl border border-gray-100">
+                        <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full vid-gradient thread-1 rounded-full"></div></div>
+                        <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full vid-gradient thread-2 rounded-full"></div></div>
+                        <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full vid-gradient thread-3 rounded-full"></div></div>
+                    </div>
                 </div>
 
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition group">
-                    <div class="w-14 h-14 rounded-2xl hero-gradient text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition">
+                <div class="reveal-up bg-[#F8F9FA] hover:bg-white p-8 rounded-3xl border border-gray-100 hover:border-red-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-[#1E1E2F] text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-music"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-[#1E2229] mb-3">4K & MP3 Converter</h3>
-                    <p class="text-[#68707E] text-sm leading-relaxed">Save videos in crystal-clear 1080p, 2K, 4K or extract audio directly into 320kbps high-quality MP3 format.</p>
+                    <h3 class="text-xl font-bold text-[#1E1E2F] mb-3">4K Player & MP3 Converter</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Save videos in 1080p, 2K, 4K or extract audio directly into 320kbps high-quality MP3 format.</p>
                 </div>
 
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition group">
-                    <div class="w-14 h-14 rounded-2xl hero-gradient text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition">
-                        <i class="fa-solid fa-shield-halved"></i>
+                <div class="reveal-up bg-[#F8F9FA] hover:bg-white p-8 rounded-3xl border border-gray-100 hover:border-red-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group" style="transition-delay: 80ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-whatsapp"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-[#1E2229] mb-3">WhatsApp & Private Vault</h3>
-                    <p class="text-[#68707E] text-sm leading-relaxed">One-tap WhatsApp status saver and PIN-protected encrypted folder to keep your downloaded files secure.</p>
+                    <h3 class="text-xl font-bold text-[#1E1E2F] mb-3">WhatsApp Status & Vault</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">One-tap WhatsApp status saver and PIN-protected encrypted folder to keep your downloaded files safe.</p>
+                </div>
+
+                <div class="reveal-up bg-[#F8F9FA] hover:bg-white p-8 rounded-3xl border border-gray-100 hover:border-red-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group" style="transition-delay: 160ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-tv"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1E1E2F] mb-3">Live TV & Web Series</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Watch 200+ Live TV channels covering sports, news, and entertainment alongside trending movies.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How to Download Guide -->
-    <section id="how-to-download" class="py-24 bg-white border-y border-gray-100">
+    <!-- ==================== 5. INTERACTIVE APP SCREENSHOTS (WITH 4 RICH THUMBNAILS) ==================== -->
+    <section id="screenshots" class="py-24 bg-[#F8F9FA] border-y border-gray-100 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-emerald-600 font-bold text-xs uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Step-by-Step Guide</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1E2229] mt-3">How to Download & Install Toomate App</h2>
-                <p class="text-[#68707E] mt-3 text-sm sm:text-base">Get started in seconds with our secure APK installer.</p>
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 reveal-up">
+                <div>
+                    <span class="text-[#FF3B30] font-bold text-xs uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full">App Screenshots</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1E1E2F] mt-4">Explore Toomate App Interface</h2>
+                    <p class="text-gray-500 mt-2 text-sm sm:text-base">Real HD thumbnails & interactive app screens. Click any screenshot to zoom.</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button id="autoPlayBtn" onclick="toggleAutoPlay()" class="flex items-center gap-2 bg-white border border-gray-200 text-xs font-bold px-4 py-2.5 rounded-full shadow-xs hover:border-[#FF3B30] transition cursor-pointer">
+                        <span id="autoPlayDot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span id="autoPlayText">Auto-Play: ON</span>
+                    </button>
+                    <button onclick="moveCarousel(-1)" class="w-11 h-11 rounded-full bg-white border border-gray-200 text-[#1E1E2F] hover:bg-[#FF3B30] hover:text-white hover:border-[#FF3B30] transition shadow-xs flex items-center justify-center cursor-pointer ripple-btn">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="moveCarousel(1)" class="w-11 h-11 rounded-full bg-white border border-gray-200 text-[#1E1E2F] hover:bg-[#FF3B30] hover:text-white hover:border-[#FF3B30] transition shadow-xs flex items-center justify-center cursor-pointer ripple-btn">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-[#F8F9FA] p-8 rounded-3xl border border-gray-200/60 relative">
-                    <div class="absolute -top-4 left-8 w-10 h-10 rounded-full hero-gradient text-white font-extrabold flex items-center justify-center shadow-md">1</div>
-                    <h3 class="text-lg font-bold text-[#1E2229] mt-4 mb-2">Tap Download Button</h3>
-                    <p class="text-[#68707E] text-sm">Click the official download button above to get the latest Toomate APK file safely.</p>
+            <!-- Carousel Viewport -->
+            <div class="relative overflow-hidden">
+                <div id="carouselTrack" class="flex transition-transform duration-500 ease-out gap-6">
+                    
+                    <!-- Screen 1: Home Feed with 4 Rich Photo Thumbnails -->
+                    <div onclick="openLightbox(0)" class="carousel-slide w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 cursor-zoom-in group">
+                        <div class="bg-[#1E1E2F] rounded-[34px] p-2.5 shadow-lg group-hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-white rounded-[26px] overflow-hidden h-[450px] flex flex-col">
+                                <div class="vid-gradient p-3.5 text-white">
+                                    <div class="flex justify-between items-center text-xs font-bold mb-2">
+                                        <span class="flex items-center gap-1.5"><img src="https://i.imgur.com/okc1Qb3.png" class="w-4 h-4 rounded bg-white p-0.5 object-contain"> Toomate</span>
+                                        <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full">Featured</span>
+                                    </div>
+                                    <div class="bg-white text-gray-500 text-[10px] px-3 py-1.5 rounded-full flex justify-between items-center">
+                                        <span>Search YouTube, FB, TikTok...</span>
+                                        <i class="fa-solid fa-search text-[#FF3B30]"></i>
+                                    </div>
+                                </div>
+
+                                <!-- 4 REAL THUMBNAILS GRID -->
+                                <div class="p-2.5 grid grid-cols-2 gap-2 flex-1 bg-gray-50">
+                                    <div class="bg-white rounded-xl p-1.5 shadow-2xs flex flex-col justify-between">
+                                        <div class="relative h-24 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80" alt="Thumb 1" class="w-full h-full object-cover">
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">04:12</span>
+                                        </div>
+                                        <div class="text-[10px] font-bold text-[#1E1E2F] truncate mt-1">EDM Festival 4K</div>
+                                    </div>
+                                    <div class="bg-white rounded-xl p-1.5 shadow-2xs flex flex-col justify-between">
+                                        <div class="relative h-24 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Thumb 2" class="w-full h-full object-cover">
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">09:20</span>
+                                        </div>
+                                        <div class="text-[10px] font-bold text-[#1E1E2F] truncate mt-1">4K Nature Documentary</div>
+                                    </div>
+                                    <div class="bg-white rounded-xl p-1.5 shadow-2xs flex flex-col justify-between">
+                                        <div class="relative h-24 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" alt="Thumb 3" class="w-full h-full object-cover">
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">03:45</span>
+                                        </div>
+                                        <div class="text-[10px] font-bold text-[#1E1E2F] truncate mt-1">Studio Acoustic MP3</div>
+                                    </div>
+                                    <div class="bg-white rounded-xl p-1.5 shadow-2xs flex flex-col justify-between">
+                                        <div class="relative h-24 rounded-lg overflow-hidden bg-gray-800">
+                                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Thumb 4" class="w-full h-full object-cover">
+                                            <span class="absolute bottom-1 right-1 bg-black/75 text-white text-[8px] px-1 rounded">12:05</span>
+                                        </div>
+                                        <div class="text-[10px] font-bold text-[#1E1E2F] truncate mt-1">Live Concert Show</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center font-bold text-sm text-[#1E1E2F] mt-4">1. Home Feed (4K & Music Thumbnails)</p>
+                    </div>
+
+                    <!-- Screen 2: Download Manager with Real Thumbnails -->
+                    <div onclick="openLightbox(1)" class="carousel-slide w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 cursor-zoom-in group">
+                        <div class="bg-[#1E1E2F] rounded-[34px] p-2.5 shadow-lg group-hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-white rounded-[26px] overflow-hidden h-[450px] flex flex-col">
+                                <div class="bg-white border-b border-gray-100 p-4 flex items-center justify-between">
+                                    <span class="font-extrabold text-sm text-[#1E1E2F]">Download Manager</span>
+                                    <span class="text-[10px] font-bold text-[#FF3B30] bg-red-50 px-2.5 py-0.5 rounded-full">5x Speed</span>
+                                </div>
+                                <div class="p-3 space-y-2.5 flex-1 bg-gray-50">
+                                    <div class="bg-white p-2.5 rounded-2xl shadow-xs flex items-center gap-2.5">
+                                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=200&q=80" alt="Movie" class="w-14 h-12 rounded-xl object-cover shrink-0">
+                                        <div class="flex-1 min-w-0 space-y-1">
+                                            <div class="flex justify-between text-[11px] font-bold"><span class="truncate">Cinema_Action_4K.mp4</span><span class="text-[#FF3B30]">82%</span></div>
+                                            <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full vid-gradient w-[82%]"></div></div>
+                                            <div class="text-[9px] text-gray-400">18.2 MB/s • 8s left</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2.5 rounded-2xl shadow-xs flex items-center gap-2.5">
+                                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=200&q=80" alt="EDM" class="w-14 h-12 rounded-xl object-cover shrink-0">
+                                        <div class="flex-1 min-w-0 space-y-1">
+                                            <div class="flex justify-between text-[11px] font-bold"><span class="truncate">Festival_Hits_2026.mp3</span><span class="text-emerald-600">Done ✓</span></div>
+                                            <div class="h-1.5 bg-emerald-100 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 w-full"></div></div>
+                                            <div class="text-[9px] text-emerald-600 font-semibold">320kbps Audio Saved</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2.5 rounded-2xl shadow-xs flex items-center gap-2.5">
+                                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=80" alt="Nature" class="w-14 h-12 rounded-xl object-cover shrink-0">
+                                        <div class="flex-1 min-w-0 space-y-1">
+                                            <div class="flex justify-between text-[11px] font-bold"><span class="truncate">Mountain_Vlog_1080p.mp4</span><span class="text-[#FF3B30]">45%</span></div>
+                                            <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full vid-gradient w-[45%]"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center font-bold text-sm text-[#1E1E2F] mt-4">2. Multi-Thread Download Manager</p>
+                    </div>
+
+                    <!-- Screen 3: Quality Selector 1080p / 4K -->
+                    <div onclick="openLightbox(2)" class="carousel-slide w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 cursor-zoom-in group">
+                        <div class="bg-[#1E1E2F] rounded-[34px] p-2.5 shadow-lg group-hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-gray-900 rounded-[26px] overflow-hidden h-[450px] flex flex-col justify-between relative">
+                                <div class="relative h-44 w-full">
+                                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" alt="Concert" class="w-full h-full object-cover opacity-80">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="w-12 h-12 rounded-full bg-white/25 backdrop-blur-xs text-white flex items-center justify-center"><i class="fa-solid fa-play"></i></div>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-t-3xl p-4 space-y-2 flex-1">
+                                    <div class="text-xs font-extrabold text-[#1E1E2F] pb-1 border-b border-gray-100">Choose Format & Quality</div>
+                                    <div class="flex justify-between items-center p-2 rounded-xl border-2 border-[#FF3B30] bg-red-50/40 text-xs font-bold">
+                                        <span>4K Ultra HD (2160p)</span><span class="text-[#FF3B30]">185 MB</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 rounded-xl border border-gray-200 text-xs font-semibold">
+                                        <span>1080p Full HD (MP4)</span><span class="text-gray-500">68 MB</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 rounded-xl border border-gray-200 text-xs font-semibold">
+                                        <span>MP3 320kbps Audio</span><span class="text-gray-500">7.4 MB</span>
+                                    </div>
+                                    <div class="vid-gradient text-white text-center font-bold py-2.5 rounded-xl text-xs">Download Selected</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center font-bold text-sm text-[#1E1E2F] mt-4">3. Quality Selector (1080p / 4K)</p>
+                    </div>
+
+                    <!-- Screen 4: MP3 Converter -->
+                    <div onclick="openLightbox(3)" class="carousel-slide w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 cursor-zoom-in group">
+                        <div class="bg-[#1E1E2F] rounded-[34px] p-2.5 shadow-lg group-hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-white rounded-[26px] overflow-hidden h-[450px] flex flex-col">
+                                <div class="vid-gradient p-4 text-white font-extrabold text-sm">Video to MP3 Converter</div>
+                                <div class="p-4 flex-1 flex flex-col justify-between bg-gray-50">
+                                    <div class="bg-white p-3.5 rounded-2xl shadow-xs text-center space-y-2.5">
+                                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" alt="Audio Studio" class="w-full h-28 rounded-xl object-cover">
+                                        <div class="text-xs font-bold text-[#1E1E2F]">Lossless 320kbps Audio Extraction</div>
+                                        <div class="flex justify-center gap-1 items-end h-6">
+                                            <span class="w-1.5 h-3 bg-[#FF3B30] rounded-full"></span>
+                                            <span class="w-1.5 h-6 bg-[#FF5E3A] rounded-full"></span>
+                                            <span class="w-1.5 h-4 bg-[#FF3B30] rounded-full"></span>
+                                            <span class="w-1.5 h-5 bg-[#FF5E3A] rounded-full"></span>
+                                            <span class="w-1.5 h-3 bg-[#FF3B30] rounded-full"></span>
+                                        </div>
+                                        <div class="text-[11px] font-bold text-emerald-600 bg-emerald-50 py-1 rounded-lg">Instant MP3 Ready</div>
+                                    </div>
+                                    <div class="vid-gradient text-white text-center font-bold py-2.5 rounded-xl text-xs">Convert & Save MP3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center font-bold text-sm text-[#1E1E2F] mt-4">4. Fast MP3 Music Converter</p>
+                    </div>
+
+                    <!-- Screen 5: Dark Mode -->
+                    <div onclick="openLightbox(4)" class="carousel-slide w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 cursor-zoom-in group">
+                        <div class="bg-[#1E1E2F] rounded-[34px] p-2.5 shadow-lg group-hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-[#12131C] text-white rounded-[26px] overflow-hidden h-[450px] flex flex-col">
+                                <div class="p-4 border-b border-white/10 flex justify-between items-center">
+                                    <span class="font-extrabold text-sm">Toomate <span class="text-[#FF5E3A]">Dark Mode</span></span>
+                                    <i class="fa-solid fa-moon text-amber-400"></i>
+                                </div>
+                                <div class="p-3.5 space-y-3 flex-1">
+                                    <div class="relative h-36 rounded-2xl overflow-hidden border border-white/10">
+                                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=400&q=80" alt="Dark Cinema" class="w-full h-full object-cover opacity-75">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
+                                            <span class="text-xs font-bold">Cinema Night Mode</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white/5 p-3 rounded-xl border border-white/10 flex justify-between items-center text-xs">
+                                        <span>Eye-Comfort OLED UI</span>
+                                        <span class="w-8 h-4 rounded-full bg-[#FF3B30] flex items-center justify-end p-0.5"><span class="w-3 h-3 rounded-full bg-white"></span></span>
+                                    </div>
+                                    <div class="bg-white/5 p-3 rounded-xl border border-white/10 text-[11px] text-gray-300">
+                                        Private Vault • PIN Protected
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center font-bold text-sm text-[#1E1E2F] mt-4">5. Sleek Cinema Dark Mode</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="carouselDots" class="flex items-center justify-center gap-2.5 mt-8"></div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. "HOW TO INSTALL APK" TIMELINE ==================== -->
+    <section id="how-to-download" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full">Step-by-Step Guide</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1E1E2F] mt-4">How to Download & Install Toomate APK</h2>
+                <p class="text-gray-500 mt-2 text-sm sm:text-base">Get started in seconds with our secure official APK installer.</p>
+            </div>
+
+            <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="hidden md:block absolute top-11 left-[16%] right-[16%] h-1.5 rounded-full timeline-flow z-0"></div>
+
+                <div class="reveal-up relative z-10 bg-[#F8F9FA] p-7 rounded-3xl border border-gray-100 text-center space-y-4">
+                    <div class="w-16 h-16 rounded-2xl vid-gradient text-white font-black text-2xl mx-auto flex items-center justify-center shadow-lg">1</div>
+                    <h3 class="text-lg font-bold text-[#1E1E2F]">Tap Download Button</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">Click the official download button to get the latest Toomate <code class="bg-gray-200 px-1.5 py-0.5 rounded text-[11px]">app-release.apk</code> file safely.</p>
                 </div>
 
-                <div class="bg-[#F8F9FA] p-8 rounded-3xl border border-gray-200/60 relative">
-                    <div class="absolute -top-4 left-8 w-10 h-10 rounded-full hero-gradient text-white font-extrabold flex items-center justify-center shadow-md">2</div>
-                    <h3 class="text-lg font-bold text-[#1E2229] mt-4 mb-2">Install APK</h3>
-                    <p class="text-[#68707E] text-sm">Open the downloaded file and tap install on your Android device screen.</p>
+                <div class="reveal-up relative z-10 bg-[#F8F9FA] p-7 rounded-3xl border border-gray-100 text-center space-y-4" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 rounded-2xl vid-gradient text-white font-black text-2xl mx-auto flex items-center justify-center shadow-lg">2</div>
+                    <h3 class="text-lg font-bold text-[#1E1E2F]">Enable "Unknown Sources"</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">Open the downloaded file and enable <strong>Allow from this source</strong> in Android Settings.</p>
+                    <div class="bg-white border border-gray-200 rounded-2xl p-3 flex items-center justify-between max-w-[230px] mx-auto shadow-2xs">
+                        <span class="text-xs font-bold text-[#1E1E2F]">Unknown Sources</span>
+                        <button id="unknownToggle" onclick="toggleUnknownSwitch()" class="w-12 h-6 rounded-full bg-emerald-500 p-1 flex items-center justify-end transition-all duration-300 cursor-pointer" aria-label="Toggle Unknown Sources">
+                            <span class="w-4 h-4 rounded-full bg-white shadow-sm"></span>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="bg-[#F8F9FA] p-8 rounded-3xl border border-gray-200/60 relative">
-                    <div class="absolute -top-4 left-8 w-10 h-10 rounded-full hero-gradient text-white font-extrabold flex items-center justify-center shadow-md">3</div>
-                    <h3 class="text-lg font-bold text-[#1E2229] mt-4 mb-2">Enjoy Unlimited Downloads</h3>
-                    <p class="text-[#68707E] text-sm">Search any video or paste links to download in 4K HD and MP3 instantly.</p>
+                <div class="reveal-up relative z-10 bg-[#F8F9FA] p-7 rounded-3xl border border-gray-100 text-center space-y-4" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-2xl vid-gradient text-white font-black text-2xl mx-auto flex items-center justify-center shadow-lg">3</div>
+                    <h3 class="text-lg font-bold text-[#1E1E2F]">Enjoy Unlimited Downloads</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">Tap <strong>Install</strong>, search any video or paste links to download in 4K HD and MP3 instantly!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Accordion -->
-    <section id="faq" class="py-24 bg-[#F8F9FA]">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-[#FF3B30] font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full">FAQ</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1E2229] mt-3">Frequently Asked Questions</h2>
+    <!-- ==================== 7. INTERACTIVE FAQ ACCORDION ==================== -->
+    <section id="faq" class="py-24 bg-[#F8F9FA] border-t border-gray-100">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 reveal-up">
+                <span class="text-[#FF3B30] font-bold text-xs uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full">FAQ</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1E1E2F] mt-4">Frequently Asked Questions</h2>
             </div>
 
             <div class="space-y-4">
-                <div class="bg-white rounded-2xl border border-gray-200/60 overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(this)" class="w-full px-6 py-5 text-left font-bold text-base text-[#1E2229] flex items-center justify-between focus:outline-none cursor-pointer">
+                <div class="faq-item active bg-white rounded-2xl border border-gray-200/70 shadow-xs overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-sm sm:text-base text-[#1E1E2F] flex items-center justify-between gap-4 cursor-pointer">
                         <span>Is Toomate 100% safe to install?</span>
-                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
+                        <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 transition-transform duration-300"></i>
                     </button>
-                    <div class="hidden px-6 pb-5 text-sm text-[#68707E] leading-relaxed">
-                        Yes, Toomate is completely secure, malware-free, and trusted by millions of Android users worldwide.
+                    <div class="faq-content">
+                        <div class="faq-inner px-6 pb-5 text-sm text-gray-600 leading-relaxed">
+                            Yes, Toomate is completely secure, malware-free, and trusted by millions of Android users worldwide. Always download from our official website.
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl border border-gray-200/60 overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(this)" class="w-full px-6 py-5 text-left font-bold text-base text-[#1E2229] flex items-center justify-between focus:outline-none cursor-pointer">
+                <div class="faq-item bg-white rounded-2xl border border-gray-200/70 shadow-xs overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-sm sm:text-base text-[#1E1E2F] flex items-center justify-between gap-4 cursor-pointer">
                         <span>Can I convert videos to MP3 audio?</span>
-                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
+                        <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 transition-transform duration-300"></i>
                     </button>
-                    <div class="hidden px-6 pb-5 text-sm text-[#68707E] leading-relaxed">
-                        Yes! Toomate has a built-in converter that extracts 320kbps high-quality MP3 audio from any link instantly.
+                    <div class="faq-content">
+                        <div class="faq-inner px-6 pb-5 text-sm text-gray-600 leading-relaxed">
+                            Yes! Toomate has a built-in converter that extracts 320kbps high-quality MP3 audio from any link instantly.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl border border-gray-200/70 shadow-xs overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-sm sm:text-base text-[#1E1E2F] flex items-center justify-between gap-4 cursor-pointer">
+                        <span>Why isn't Toomate available on Google Play Store?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-inner px-6 pb-5 text-sm text-gray-600 leading-relaxed">
+                            Google Play restricts apps that download videos directly from third-party streaming platforms. That is why Toomate v4.0 APK is distributed safely from our official site.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pre-Footer CTA Banner -->
-    <section class="py-20 hero-gradient text-white text-center relative overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-6">
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Ready to Experience VidMate Style Speed?</h2>
-            <p class="text-white/90 max-w-xl mx-auto text-sm sm:text-base">Download the official Toomate app now and enjoy unlimited media downloads.</p>
-            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="inline-flex items-center gap-3 bg-white text-[#FF3B30] font-bold px-8 py-4 rounded-2xl shadow-2xl hover:bg-gray-100 transition text-lg transform hover:scale-105 cursor-pointer">
+    <!-- ==================== PRE-FOOTER CTA ==================== -->
+    <section class="py-16 vid-gradient text-white text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-5">
+            <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Ready to Experience VidMate Style Speed?</h2>
+            <p class="text-white/90 text-sm sm:text-base max-w-xl mx-auto">Download the official Toomate v4.0 app now and enjoy unlimited 4K video and MP3 media downloads.</p>
+            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="inline-flex items-center gap-3 bg-white text-[#FF3B30] font-extrabold px-8 py-4 rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300 text-base sm:text-lg ripple-btn">
                 <i class="fa-solid fa-download"></i>
                 <span>Download Toomate APK Now</span>
             </a>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#14171D] text-gray-400 py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div class="flex items-center gap-3">
-                <img src="https://i.imgur.com/okc1Qb3.png" alt="Logo" class="w-9 h-9 rounded-xl object-contain bg-white/10 p-1">
-                <span class="text-xl font-bold text-white">Too<span class="text-[#FF3B30]">mate</span></span>
+    <!-- ==================== 9. FOOTER ==================== -->
+    <footer class="bg-[#1E1E2F] text-gray-400 pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2.5">
+                        <img src="https://i.imgur.com/okc1Qb3.png" alt="Toomate Logo" class="w-9 h-9 rounded-xl object-contain bg-white/10 p-1">
+                        <span class="text-xl font-extrabold text-white">Too<span class="text-[#FF5E3A]">mate</span></span>
+                    </div>
+                    <p class="text-xs leading-relaxed text-gray-400">
+                        The ultimate free HD video downloader, MP3 converter, and WhatsApp Status saver for Android.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">Quick Links</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#home" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#screenshots" class="hover:text-white transition">Screenshots</a></li>
+                        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">Supported Sites</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#features" class="hover:text-white transition">YouTube Downloader</a></li>
+                        <li><a href="#features" class="hover:text-white transition">Facebook Video Saver</a></li>
+                        <li><a href="#features" class="hover:text-white transition">Instagram Reels Saver</a></li>
+                        <li><a href="#features" class="hover:text-white transition">TikTok HD Downloader</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">DMCA & Disclaimer</h4>
+                    <p class="text-[11px] leading-relaxed text-gray-400">
+                        Toomate respects intellectual property rights and complies with DMCA guidelines. Users are responsible for personal offline usage permissions.
+                    </p>
+                </div>
             </div>
-            <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400 font-medium">
-                <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition">Terms of Service</a>
-                <a href="#" class="hover:text-white transition">Contact Us</a>
-            </div>
-            <div class="text-xs text-gray-500">
-                © 2026 Toomate. All rights reserved.
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+                <div>© 2026 Toomate. All rights reserved.</div>
+                <div>Official Android Release v4.0 • 68.2 MB • VirusFree</div>
             </div>
         </div>
     </footer>
 
-    <!-- QR Code Modal -->
-    <div id="qrModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative shadow-2xl">
-            <button onclick="closeQRModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
-            <div class="w-16 h-16 rounded-2xl hero-gradient text-white mx-auto flex items-center justify-center text-3xl mb-4 shadow-md">
-                <img src="https://i.imgur.com/okc1Qb3.png" class="w-10 h-10 object-contain rounded-lg">
+    <!-- Floating Back to Top -->
+    <button id="backToTopBtn" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="fixed bottom-20 md:bottom-7 right-5 z-40 w-11 h-11 rounded-full vid-gradient text-white shadow-xl hidden items-center justify-center hover:scale-110 transition-transform cursor-pointer" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Sticky Bottom Mobile Download Bar -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-2.5 flex items-center justify-between shadow-2xl">
+        <div class="flex items-center gap-2.5">
+            <img src="https://i.imgur.com/okc1Qb3.png" alt="Toomate" class="w-9 h-9 rounded-xl object-contain border border-gray-100">
+            <div>
+                <div class="text-sm font-extrabold text-[#1E1E2F] leading-tight">Toomate v4.0</div>
+                <div class="text-[10px] text-emerald-600 font-bold">68.2 MB • VirusFree</div>
             </div>
-            <h3 class="text-xl font-bold text-[#1E2229] mb-2">Scan to Download</h3>
-            <p class="text-xs text-[#68707E] mb-6">Scan with your mobile camera to get Toomate APK instantly.</p>
-            <div class="bg-gray-100 p-4 rounded-2xl inline-block mb-6 border border-gray-200">
-                <svg class="w-40 h-40 mx-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" rx="12" fill="white"/>
-                    <rect x="10" y="10" width="30" height="30" rx="6" fill="#1E2229"/>
-                    <rect x="16" y="16" width="18" height="18" rx="3" fill="white"/>
-                    <rect x="20" y="20" width="10" height="10" fill="#FF3B30"/>
-                    <rect x="60" y="10" width="30" height="30" rx="6" fill="#1E2229"/>
-                    <rect x="66" y="16" width="18" height="18" rx="3" fill="white"/>
-                    <rect x="70" y="20" width="10" height="10" fill="#FF3B30"/>
-                    <rect x="10" y="60" width="30" height="30" rx="6" fill="#1E2229"/>
-                    <rect x="16" y="66" width="18" height="18" rx="3" fill="white"/>
-                    <rect x="20" y="70" width="10" height="10" fill="#FF3B30"/>
-                    <rect x="50" y="50" width="12" height="12" fill="#1E2229"/>
-                    <rect x="70" y="50" width="20" height="10" fill="#1E2229"/>
-                    <rect x="50" y="70" width="10" height="20" fill="#1E2229"/>
-                    <rect x="70" y="70" width="20" height="20" rx="4" fill="#1E2229"/>
+        </div>
+        <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="openDownloadModal()" class="vid-gradient text-white text-xs font-extrabold px-4 py-2.5 rounded-full shadow-md ripple-btn flex items-center gap-1.5">
+            <i class="fa-solid fa-download"></i>
+            <span>Download</span>
+        </a>
+    </div>
+
+    <!-- ==================== 8. INTERACTIVE DOWNLOAD MODAL (REAL GITHUB APK) ==================== -->
+    <div id="downloadModal" onclick="if(event.target===this) closeDownloadModal()" class="fixed inset-0 bg-black/65 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeDownloadModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-3">
+                <div class="w-16 h-16 rounded-2xl vid-gradient text-white mx-auto flex items-center justify-center text-2xl shadow-lg">
+                    <img src="https://i.imgur.com/okc1Qb3.png" alt="Toomate" class="w-10 h-10 object-contain rounded-lg">
+                </div>
+                <h3 class="text-lg font-extrabold text-[#1E1E2F]">Downloading Toomate v4.0 (app-release.apk)...</h3>
+                <p id="dlModalSubtitle" class="text-xs text-gray-500">Your official APK download (68.2 MB) has started automatically.</p>
+            </div>
+
+            <div class="my-6 bg-[#F8F9FA] p-4 rounded-2xl border border-gray-100 space-y-2.5">
+                <div class="flex justify-between text-xs font-bold">
+                    <span class="text-[#1E1E2F]" id="dlStatusText">Downloading from official GitHub release...</span>
+                    <span class="text-[#FF3B30]" id="dlPercentText">0%</span>
+                </div>
+                <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="dlProgressBar" class="h-full vid-gradient rounded-full transition-all duration-75" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-4 space-y-3 border border-gray-100">
+                <div class="text-xs font-extrabold text-[#1E1E2F] uppercase tracking-wider">Quick Install Guide</div>
+                <div class="grid grid-cols-3 gap-2 text-center text-[11px]">
+                    <div class="bg-white p-2.5 rounded-xl border border-gray-100"><i class="fa-solid fa-file-arrow-down text-[#FF3B30] text-base mb-1 block"></i><span class="font-bold text-gray-700">1. Open APK</span></div>
+                    <div class="bg-white p-2.5 rounded-xl border border-gray-100"><i class="fa-solid fa-toggle-on text-emerald-500 text-base mb-1 block"></i><span class="font-bold text-gray-700">2. Allow Source</span></div>
+                    <div class="bg-white p-2.5 rounded-xl border border-gray-100"><i class="fa-solid fa-circle-check text-blue-500 text-base mb-1 block"></i><span class="font-bold text-gray-700">3. Tap Install</span></div>
+                </div>
+            </div>
+
+            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" onclick="startModalDownload()" class="mt-5 w-full vid-gradient text-white font-bold py-3.5 rounded-xl shadow-md hover:opacity-95 transition ripple-btn flex items-center justify-center gap-2 text-sm">
+                <i class="fa-solid fa-download"></i>
+                <span>Click Here if Download Didn't Start</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ==================== QR CODE MODAL ==================== -->
+    <div id="qrModal" onclick="if(event.target===this) closeQRModal()" class="fixed inset-0 bg-black/65 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-7 max-w-sm w-full text-center relative shadow-2xl">
+            <button onclick="closeQRModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-14 h-14 rounded-2xl vid-gradient text-white mx-auto flex items-center justify-center mb-3 shadow-md">
+                <img src="https://i.imgur.com/okc1Qb3.png" alt="Logo" class="w-9 h-9 object-contain rounded-lg">
+            </div>
+            <h3 class="text-lg font-extrabold text-[#1E1E2F]">Scan to Download Toomate</h3>
+            <p class="text-xs text-gray-500 mt-1 mb-5">Scan with your mobile camera to get Toomate APK v4.0 instantly.</p>
+
+            <div class="bg-[#F8F9FA] p-4 rounded-2xl inline-block border border-gray-200 mb-4">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk"
+                     alt="Toomate Download QR Code"
+                     class="w-44 h-44 mx-auto rounded-lg"
+                     onerror="this.style.display='none'; document.getElementById('fallbackQrSvg').classList.remove('hidden');">
+                <svg id="fallbackQrSvg" class="hidden w-44 h-44 mx-auto" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="120" height="120" rx="10" fill="white"/>
+                    <rect x="8" y="8" width="30" height="30" rx="4" fill="#1E1E2F"/><rect x="13" y="13" width="20" height="20" rx="2" fill="white"/><rect x="18" y="18" width="10" height="10" rx="1" fill="#FF3B30"/>
+                    <rect x="82" y="8" width="30" height="30" rx="4" fill="#1E1E2F"/><rect x="87" y="13" width="20" height="20" rx="2" fill="white"/><rect x="92" y="18" width="10" height="10" rx="1" fill="#FF3B30"/>
+                    <rect x="8" y="82" width="30" height="30" rx="4" fill="#1E1E2F"/><rect x="13" y="87" width="20" height="20" rx="2" fill="white"/><rect x="18" y="92" width="10" height="10" rx="1" fill="#FF3B30"/>
+                    <rect x="50" y="44" width="20" height="20" rx="4" fill="#FF3B30"/><rect x="55" y="49" width="10" height="10" rx="2" fill="white"/>
                 </svg>
             </div>
-            <div class="text-[11px] text-emerald-600 font-bold bg-emerald-50 py-2 rounded-xl">Official Release v4.0 • Secure APK</div>
+
+            <div class="text-xs text-emerald-700 font-bold bg-emerald-50 py-2.5 rounded-xl">
+                Official Release v4.0 • 68.2 MB • Secure APK
+            </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-[#1E2229] text-white px-5 py-3 rounded-2xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-[#00C853] text-lg"></i>
+    <!-- ==================== LIGHTBOX MODAL FOR SCREENSHOTS ==================== -->
+    <div id="lightboxModal" onclick="if(event.target===this) closeLightbox()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="relative max-w-sm w-full">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="lightboxContainer" class="transform scale-105 transition-transform"></div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="fixed bottom-20 md:bottom-6 right-5 bg-[#1E1E2F] text-white px-5 py-3.5 rounded-2xl shadow-2xl z-50 transform translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-3 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
         <div class="text-xs">
-            <div class="font-bold" id="toastTitle">Platform Supported</div>
-            <div class="text-gray-400" id="toastDesc">HD Video & MP3 extraction ready.</div>
+            <div class="font-bold" id="toastTitle">Notification</div>
+            <div class="text-gray-300" id="toastMessage">Ready to use.</div>
         </div>
     </div>
 
-    <!-- JavaScript Interactivity -->
+    <!-- ==================== JAVASCRIPT ==================== -->
     <script>
-        const menuBtn = document.getElementById('menuBtn');
+        // Tactile Ripple Effect
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.ripple-btn');
+            if (!btn) return;
+            const rect = btn.getBoundingClientRect();
+            const circle = document.createElement('span');
+            const diameter = Math.max(rect.width, rect.height);
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - diameter / 2}px`;
+            circle.style.top = `${e.clientY - rect.top - diameter / 2}px`;
+            circle.classList.add('ripple-wave');
+            const existing = btn.querySelector('.ripple-wave');
+            if (existing) existing.remove();
+            btn.appendChild(circle);
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        function toggleMobileMenu() { mobileMenu.classList.toggle('hidden'); }
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         });
 
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        // Language Switcher
+        const langDropdown = document.getElementById('langDropdown');
+        const langToggleBtn = document.getElementById('langToggleBtn');
+        function toggleLangDropdown() { langDropdown.classList.toggle('hidden'); }
+        document.addEventListener('click', (e) => {
+            if (!langToggleBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.add('hidden');
         });
 
-        function openQRModal() {
-            document.getElementById('qrModal').classList.remove('hidden');
-        }
-        function closeQRModal() {
-            document.getElementById('qrModal').classList.add('hidden');
+        const translations = {
+            en: {
+                title: 'Best Free Video & Music <br class="hidden sm:block">Downloader for <span class="vid-text-gradient">Android</span>',
+                subtitle: 'Like VidMate, Toomate brings lightning-fast HD videos, movies, and MP3 music downloads from YouTube, Facebook, Instagram, TikTok, and 1000+ websites in stunning 4K and MP3 formats.',
+                cta: 'Download Toomate APK'
+            },
+            bn: {
+                title: 'অ্যান্ড্রয়েডের জন্য সেরা ফ্রি <br class="hidden sm:block">ভিডিও ও মিউজিক <span class="vid-text-gradient">ডাউনলোডার</span>',
+                subtitle: 'VidMate-এর মতোই Toomate দিয়ে YouTube, Facebook, Instagram, TikTok এবং ১০০০+ ওয়েবসাইট থেকে মুহূর্তেই 4K HD ভিডিও এবং MP3 গান ডাউনলোড করুন।',
+                cta: 'Toomate APK ডাউনলোড'
+            },
+            hi: {
+                title: 'एंड्रॉइड के लिए सबसे तेज़ <br class="hidden sm:block">वीडियो और म्यूजिक <span class="vid-text-gradient">डाउनलोडर</span>',
+                subtitle: 'VidMate की तरह Toomate से YouTube, Facebook, Instagram, TikTok और 1000+ वेबसाइटों से बिजली की गति से 4K HD वीडियो और MP3 गाने डाउनलोड करें।',
+                cta: 'Toomate APK डाउनलोड'
+            }
+        };
+
+        function setLanguage(code, label) {
+            document.getElementById('activeLangLabel').innerText = label;
+            document.getElementById('heroTitle').innerHTML = translations[code].title;
+            document.getElementById('heroSubtitle').innerText = translations[code].subtitle;
+            document.getElementById('heroCtaText').innerText = translations[code].cta;
+            langDropdown.classList.add('hidden');
+            showToast('Language Changed', 'Display switched to ' + label);
         }
 
-        function showToast(platform) {
+        // Live Hero Phone Progress Loop
+        let phoneProg = 0;
+        setInterval(() => {
+            phoneProg += 2;
+            if (phoneProg > 100) phoneProg = 0;
+            const bar = document.getElementById('phoneProgressBar');
+            const pct = document.getElementById('phonePercent');
+            const size = document.getElementById('phoneSize');
+            if (bar && pct && size) {
+                bar.style.width = phoneProg + '%';
+                pct.innerText = phoneProg + '%';
+                size.innerText = ((phoneProg * 1.2).toFixed(0)) + ' / 120 MB';
+            }
+        }, 70);
+
+        // Scroll Reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
+
+        // Screenshots Carousel + Lightbox
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dotsContainer = document.getElementById('carouselDots');
+        let currentIndex = 0;
+        let autoPlayEnabled = true;
+        let autoPlayTimer = null;
+
+        function getVisibleCount() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 640) return 2;
+            return 1;
+        }
+        function getMaxIndex() { return Math.max(0, slides.length - getVisibleCount()); }
+
+        function renderDots() {
+            dotsContainer.innerHTML = '';
+            const totalPages = getMaxIndex() + 1;
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('button');
+                dot.className = `h-2.5 rounded-full transition-all duration-300 cursor-pointer ${i === currentIndex ? 'w-8 vid-gradient' : 'w-2.5 bg-gray-300 hover:bg-gray-400'}`;
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateCarousel() {
+            const maxIdx = getMaxIndex();
+            if (currentIndex > maxIdx) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = maxIdx;
+            const slideWidth = slides[0].getBoundingClientRect().width + 24;
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            renderDots();
+        }
+
+        function moveCarousel(dir) {
+            const maxIdx = getMaxIndex();
+            currentIndex += dir;
+            if (currentIndex > maxIdx) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = maxIdx;
+            updateCarousel();
+        }
+
+        function goToSlide(index) { currentIndex = index; updateCarousel(); }
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            if (autoPlayEnabled) autoPlayTimer = setInterval(() => moveCarousel(1), 3500);
+        }
+        function stopAutoPlay() { if (autoPlayTimer) clearInterval(autoPlayTimer); }
+        function toggleAutoPlay() {
+            autoPlayEnabled = !autoPlayEnabled;
+            document.getElementById('autoPlayText').innerText = `Auto-Play: ${autoPlayEnabled ? 'ON' : 'OFF'}`;
+            const dot = document.getElementById('autoPlayDot');
+            dot.classList.toggle('bg-emerald-500', autoPlayEnabled);
+            dot.classList.toggle('bg-gray-400', !autoPlayEnabled);
+            if (autoPlayEnabled) startAutoPlay(); else stopAutoPlay();
+        }
+
+        window.addEventListener('resize', updateCarousel);
+        updateCarousel();
+        startAutoPlay();
+
+        function openLightbox(index) {
+            const clone = slides[index].cloneNode(true);
+            clone.className = 'w-full';
+            clone.onclick = null;
+            const container = document.getElementById('lightboxContainer');
+            container.innerHTML = '';
+            container.appendChild(clone);
+            document.getElementById('lightboxModal').classList.remove('hidden');
+        }
+        function closeLightbox() { document.getElementById('lightboxModal').classList.add('hidden'); }
+
+        // Unknown Sources Switch
+        let unknownEnabled = true;
+        function toggleUnknownSwitch() {
+            unknownEnabled = !unknownEnabled;
+            const btn = document.getElementById('unknownToggle');
+            if (unknownEnabled) {
+                btn.classList.remove('bg-gray-300', 'justify-start');
+                btn.classList.add('bg-emerald-500', 'justify-end');
+                showToast('Permission Enabled', 'Unknown Sources is now ON for Toomate APK installation.');
+            } else {
+                btn.classList.remove('bg-emerald-500', 'justify-end');
+                btn.classList.add('bg-gray-300', 'justify-start');
+            }
+        }
+
+        // FAQ Accordion
+        function toggleFaq(button) {
+            const item = button.closest('.faq-item');
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        }
+
+        // Download Modal
+        let dlInterval = null;
+        function openDownloadModal() {
+            document.getElementById('downloadModal').classList.remove('hidden');
+            startModalDownload();
+        }
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.add('hidden');
+            if (dlInterval) clearInterval(dlInterval);
+        }
+        function startModalDownload() {
+            if (dlInterval) clearInterval(dlInterval);
+            let progress = 0;
+            const bar = document.getElementById('dlProgressBar');
+            const pctText = document.getElementById('dlPercentText');
+            const statusText = document.getElementById('dlStatusText');
+            const subtitle = document.getElementById('dlModalSubtitle');
+
+            statusText.innerText = 'Downloading from official GitHub release...';
+            subtitle.innerText = 'Your official APK download (68.2 MB) has started automatically.';
+            bar.style.width = '0%';
+            pctText.innerText = '0%';
+
+            dlInterval = setInterval(() => {
+                progress += 1;
+                bar.style.width = progress + '%';
+                pctText.innerText = progress + '%';
+                if (progress === 40) statusText.innerText = 'Verifying Toomate v4.0 package...';
+                if (progress === 85) statusText.innerText = 'Preparing app-release.apk for install...';
+                if (progress >= 100) {
+                    clearInterval(dlInterval);
+                    statusText.innerText = 'Ready to Install!';
+                    subtitle.innerText = 'Open app-release.apk from your browser downloads to install Toomate.';
+                    showToast('Toomate APK Downloading', 'Check your browser downloads for app-release.apk.');
+                }
+            }, 30);
+        }
+
+        // QR Modal
+        function openQRModal() { document.getElementById('qrModal').classList.remove('hidden'); }
+        function closeQRModal() { document.getElementById('qrModal').classList.add('hidden'); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDownloadModal();
+                closeQRModal();
+                closeLightbox();
+                langDropdown.classList.add('hidden');
+            }
+        });
+
+        // Toast Notification
+        let toastTimeout = null;
+        function showToast(title, msg) {
             const toast = document.getElementById('toast');
-            document.getElementById('toastTitle').innerText = platform + " Supported";
-            document.getElementById('toastDesc').innerText = "Direct HD Video & MP3 extraction active.";
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3500);
         }
+
+        // Back to Top & Navbar Shadow
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 380) {
+                backToTopBtn.classList.remove('hidden');
+                backToTopBtn.classList.add('flex');
+                navbar.classList.add('shadow-md');
+            } else {
+                backToTopBtn.classList.add('hidden');
+                backToTopBtn.classList.remove('flex');
+                navbar.classList.remove('shadow-md');
+            }
+        });
     </script>
 </body>
 </html>
