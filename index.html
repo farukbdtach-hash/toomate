@@ -55,8 +55,8 @@
 
             <!-- Right Actions -->
             <div class="hidden sm:flex items-center gap-4">
-                <!-- Download CTA Button with Animation -->
-                <a href="#hero" onclick="triggerDownload(event)" class="hero-gradient text-white font-bold px-6 py-2.5 rounded-full shadow-xl hover:opacity-95 transition flex items-center gap-2.5 text-sm pulse-btn">
+                <!-- Download CTA Button with Direct Link -->
+                <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="hero-gradient text-white font-bold px-6 py-2.5 rounded-full shadow-xl hover:opacity-95 transition flex items-center gap-2.5 text-sm pulse-btn">
                     <i class="fa-solid fa-download text-xs"></i>
                     <span>Download App</span>
                 </a>
@@ -76,7 +76,7 @@
             <a href="#how-to-download" class="mobile-link font-medium text-lg">How to Download</a>
             <a href="#faq" class="mobile-link font-medium text-lg">FAQ</a>
             <hr class="border-gray-100 my-2">
-            <a href="#hero" onclick="triggerDownload(event)" class="hero-gradient text-white font-bold py-3 rounded-xl text-center flex items-center justify-center gap-2 shadow-md">
+            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="hero-gradient text-white font-bold py-3 rounded-xl text-center flex items-center justify-center gap-2 shadow-md">
                 <i class="fa-solid fa-download"></i>
                 <span>Download Toomate APK</span>
             </a>
@@ -109,16 +109,15 @@
                         Like VidMate, Toomate brings lightning-fast video and music downloads from YouTube, Facebook, Instagram, TikTok, and 1000+ websites in stunning 4K and MP3 formats.
                     </p>
 
-                    <!-- Super Animated Download CTAs -->
+                    <!-- Super Animated Download CTAs (Direct Link using <a> tag) -->
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-                        <!-- Main Ultra Glowing Animated Button -->
-                        <button onclick="triggerDownload(event)" class="w-full sm:w-auto hero-gradient text-white font-extrabold px-8 py-4 rounded-2xl shadow-2xl hover:opacity-95 transition flex items-center justify-center gap-3 text-lg pulse-btn group cursor-pointer">
+                        <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="w-full sm:w-auto hero-gradient text-white font-extrabold px-8 py-4 rounded-2xl shadow-2xl hover:opacity-95 transition flex items-center justify-center gap-3 text-lg pulse-btn group cursor-pointer">
                             <img src="https://i.imgur.com/okc1Qb3.png" alt="Logo" class="w-7 h-7 rounded-lg bg-white/20 p-1 object-contain group-hover:rotate-12 transition-transform">
                             <div class="text-left">
                                 <div class="text-[11px] font-medium text-white/90 uppercase tracking-wider">Official Android Release</div>
                                 <div class="text-base font-extrabold">Download Toomate APK (Free)</div>
                             </div>
-                        </button>
+                        </a>
 
                         <!-- QR Code Trigger -->
                         <button onclick="openQRModal()" class="w-full sm:w-auto bg-white border border-gray-200 text-[#1E2229] font-bold px-6 py-4 rounded-2xl shadow-xs hover:bg-gray-50 transition flex items-center justify-center gap-2.5 text-base cursor-pointer">
@@ -202,9 +201,9 @@
                                             <div class="text-xs font-bold text-gray-800 truncate w-36">Trending Video Song 2026</div>
                                             <div class="text-[10px] text-gray-400">Toomate Server</div>
                                         </div>
-                                        <button onclick="triggerDownload(event)" class="w-8 h-8 rounded-full bg-[#FF3B30] text-white flex items-center justify-center shadow-md">
+                                        <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="w-8 h-8 rounded-full bg-[#FF3B30] text-white flex items-center justify-center shadow-md">
                                             <i class="fa-solid fa-download text-xs"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -377,10 +376,10 @@
         <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-6">
             <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Ready to Experience VidMate Style Speed?</h2>
             <p class="text-white/90 max-w-xl mx-auto text-sm sm:text-base">Download the official Toomate app now and enjoy unlimited media downloads.</p>
-            <button onclick="triggerDownload(event)" class="inline-flex items-center gap-3 bg-white text-[#FF3B30] font-bold px-8 py-4 rounded-2xl shadow-2xl hover:bg-gray-100 transition text-lg transform hover:scale-105 cursor-pointer">
+            <a href="https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk" class="inline-flex items-center gap-3 bg-white text-[#FF3B30] font-bold px-8 py-4 rounded-2xl shadow-2xl hover:bg-gray-100 transition text-lg transform hover:scale-105 cursor-pointer">
                 <i class="fa-solid fa-download"></i>
                 <span>Download Toomate APK Now</span>
-            </button>
+            </a>
         </div>
     </section>
 
@@ -433,23 +432,6 @@
         </div>
     </div>
 
-    <!-- Download Progress Modal -->
-    <div id="downloadModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative shadow-2xl">
-            <div class="w-16 h-16 rounded-2xl hero-gradient text-white mx-auto flex items-center justify-center text-3xl mb-4 shadow-md animate-bounce">
-                <img src="https://i.imgur.com/okc1Qb3.png" class="w-10 h-10 object-contain rounded-lg">
-            </div>
-            <h3 class="text-xl font-bold text-[#1E2229] mb-1">Downloading Toomate APK</h3>
-            <p id="downloadStatusText" class="text-xs text-[#68707E] mb-6">Connecting to secure server...</p>
-            <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden mb-4 border border-gray-200">
-                <div id="progressBar" class="hero-gradient h-full w-0 transition-all duration-300"></div>
-            </div>
-            <div class="text-[11px] text-emerald-600 font-bold bg-emerald-50 py-2 rounded-xl flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-shield-check"></i> SHA-256 Verified Security
-            </div>
-        </div>
-    </div>
-
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 bg-[#1E2229] text-white px-5 py-3 rounded-2xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
         <i class="fa-solid fa-circle-check text-[#00C853] text-lg"></i>
@@ -471,13 +453,6 @@
             link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         });
 
-        function toggleFAQ(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('i');
-            content.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
-        }
-
         function openQRModal() {
             document.getElementById('qrModal').classList.remove('hidden');
         }
@@ -493,34 +468,6 @@
             setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
-        }
-
-        function triggerDownload(e) {
-            e.preventDefault();
-            const modal = document.getElementById('downloadModal');
-            const progressBar = document.getElementById('progressBar');
-            const statusText = document.getElementById('downloadStatusText');
-            
-            modal.classList.remove('hidden');
-            progressBar.style.width = '0%';
-            statusText.innerText = "Connecting to secure server...";
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 25;
-                progressBar.style.width = progress + '%';
-                if(progress === 50) statusText.innerText = "Downloading Toomate-v4.apk (68.2 MB)...";
-                if(progress === 75) statusText.innerText = "Finalizing security scan...";
-                if(progress >= 100) {
-                    clearInterval(interval);
-                    statusText.innerText = "Download starting now!";
-                    setTimeout(() => {
-                        modal.classList.add('hidden');
-                        // Correct GitHub APK Download Link (v4):
-                        window.location.href = "https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk";
-                    }, 1200);
-                }
-            }, 300);
         }
     </script>
 </body>
