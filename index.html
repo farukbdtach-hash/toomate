@@ -129,9 +129,9 @@
 
                     <!-- App Specs Meta -->
                     <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-semibold text-[#68707E] pt-2">
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-box text-[#FF3B30]"></i> Version 3.2</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-box text-[#FF3B30]"></i> Version 4.0</span>
                         <span>•</span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> Size: 22.1 MB</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> Size: 68.2 MB</span>
                         <span>•</span>
                         <span class="flex items-center gap-1.5"><i class="fa-solid fa-android text-emerald-500"></i> Android 5.0+</span>
                         <span>•</span>
@@ -429,7 +429,7 @@
                     <rect x="70" y="70" width="20" height="20" rx="4" fill="#1E2229"/>
                 </svg>
             </div>
-            <div class="text-[11px] text-emerald-600 font-bold bg-emerald-50 py-2 rounded-xl">Official Release v3.2 • Secure APK</div>
+            <div class="text-[11px] text-emerald-600 font-bold bg-emerald-50 py-2 rounded-xl">Official Release v4.0 • Secure APK</div>
         </div>
     </div>
 
@@ -509,15 +509,15 @@
             const interval = setInterval(() => {
                 progress += 25;
                 progressBar.style.width = progress + '%';
-                if(progress === 50) statusText.innerText = "Downloading Toomate-v3.2.apk (22.1 MB)...";
+                if(progress === 50) statusText.innerText = "Downloading Toomate-v4.apk (68.2 MB)...";
                 if(progress === 75) statusText.innerText = "Finalizing security scan...";
                 if(progress >= 100) {
                     clearInterval(interval);
                     statusText.innerText = "Download starting now!";
                     setTimeout(() => {
                         modal.classList.add('hidden');
-                        // GitHub APK Download Link Connected:
-                        window.location.href = "https://github.com/farukbdtach-hash/tc/releases/download/v3.1/app-release.apk";
+                        // Correct GitHub APK Download Link (v4):
+                        window.location.href = "https://github.com/farukbdtach-hash/topyou-app/releases/download/v4/app-release.apk";
                     }, 1200);
                 }
             }, 300);
